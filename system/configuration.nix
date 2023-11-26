@@ -174,6 +174,7 @@ gnomeExtensions.noannoyance-2
 gparted
 hidapi
 hplip
+hyper
 jq
 libsForQt5.ark
 libsForQt5.kdeconnect-kde
