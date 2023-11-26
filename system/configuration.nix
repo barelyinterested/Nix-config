@@ -187,7 +187,7 @@ gnomeExtensions.noannoyance-2
 gparted
 hidapi
 hplip
-hyper
+#hyper
 jq
 libsForQt5.ark
 libsForQt5.kdeconnect-kde
@@ -195,6 +195,7 @@ libsForQt5.kdesu
 libsForQt5.kpmcore
 libsForQt5.yakuake
 lxqt.qterminal
+mullvad-vpn
 ne
 obs-studio
 obsidian
@@ -260,7 +261,7 @@ ripdrag
 shortwave
 libreoffice-fresh
 tldr
-virt-manager
+#virt-manager
 ulauncher
 dwt1-shell-color-scripts
 evolutionWithPlugins
@@ -367,7 +368,7 @@ services.udev.packages = with pkgs; [ gnome.gnome-settings-daemon ];
 
   # Enable the OpenSSH daemon.
    services.openssh.enable = true;
-
+   services.mullvad-vpn.enable = true;
   # Open ports in the firewall.
   #networking.firewall.allowedTCPPorts = [ 22 ];
   #networking.firewall.allowedUDPPorts = [ 22 ];
