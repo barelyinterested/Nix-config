@@ -174,7 +174,7 @@ protonvpn-cli
 protonvpn-gui
 qbittorrent
 rar
-simplenote
+#simplenote no longer maintained see pcloud if you need it
 syncthing
 syncthing-tray
 tailscale
@@ -219,7 +219,7 @@ audacious
 cider
 openshot-qt
 joplin-desktop
-calibre
+#calibre
 filezilla
 ripdrag
 shortwave
@@ -235,7 +235,7 @@ figlet
 cmatrix
 duf
 bat
-exa
+#exa #ls replacement no longer maintained
 #fusePackages.fuse_2
 git
 (vscode-with-extensions.override {
@@ -255,6 +255,7 @@ github-desktop
 nixpkgs.config.permittedInsecurePackages = [
     "electron-24.8.6"
 		"electron-12.2.3"
+    "electron-19.1.9"
 #openssl is for github-desktop
     "openssl-1.1.1w"
     ];
