@@ -14,7 +14,7 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  networking.hostName = "nicks"; # Define your hostname.
+  networking.hostName = "nixos"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Configure network proxy if necessary
@@ -91,35 +91,17 @@
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.fred = {
     isNormalUser = true;
-#    home = "/home/fred";
+    home = "/home/fred";
     description = "fred";
     extraGroups = [ "networkmanager" "wheel" ];
-    shell = pkgs.zsh;
-#    openssh.authorizedKeys.keys = [ "SSHKEY" ];    
     packages = with pkgs; [
       firefox
-      vim-full
-      terraform      
     #  thunderbird
     ];
   };
 
-    # users.users.my-user = {
-    #   isNormalUser = true;
-    #   description = "My User";
-    #   extraGroups = [ "networkmanager" "wheel" ];
-    #   shell = pkgs.zsh;
-    #   openssh.authorizedKeys.keys = [ "SSHKEY" ];
-    #   packages = with pkgs; [
-    #     vim-full
-    #     terraform
-    #     ...
-    #   ];
-    # };
-
-
   # Enable automatic login for the user.
-  services.xserver.displayManager.autoLogin.enable = false;
+  services.xserver.displayManager.autoLogin.enable = true;
   services.xserver.displayManager.autoLogin.user = "fred";
 
   # Allow unfree packages
@@ -191,7 +173,6 @@ partition-manager
 protonvpn-cli
 protonvpn-gui
 qbittorrent
-#qownnotes
 rar
 #simplenote no longer maintained see pcloud if you need it
 syncthing
@@ -200,7 +181,7 @@ tailscale
 #tdesktop
 telegram-desktop
 textadept
-#vim-full
+vim-full
 vscodium
 wireguard-tools
 woeusb-ng
@@ -211,8 +192,6 @@ xfce.xfce4-screensaver
 xfce.xfce4-screenshooter
 xfce.xfce4-whiskermenu-plugin
 zoom-us
-zsh
-oh-my-zsh
 ##testing 
 #vscode-with-extensions
 neofetch
@@ -326,33 +305,10 @@ services.udev.packages = with pkgs; [ gnome.gnome-settings-daemon ];
   #   enableSSHSupport = true;
   # };
 
-    programs = {
-      zsh = {
-        enable = true;
-        shellAliases = {
-        ll = "ls -l";
-        update = "sudo nixos-rebuild switch";
-      };
-#        histSize = 10000;
-#        histFile = "${config.xdg.dataHome}/zsh/history";
-        ohMyZsh = {
-          enable = true;
-          theme = "robbyrussell";
-          plugins = [
-            "sudo"
-            "terraform"
-            "systemadmin"
-            "vi-mode"
-          ];
-        };
-      };
-    };
-
-#};
   # List services that you want to enable:
 
   # Enable the OpenSSH daemon.
-   services.openssh.enable = true;
+  # services.openssh.enable = true;
 
   # Open ports in the firewall.
   #networking.firewall.allowedTCPPorts = [ 22 ];
@@ -366,6 +322,6 @@ services.udev.packages = with pkgs; [ gnome.gnome-settings-daemon ];
   # this value at the release version of the first install of this system.
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "unstable"; # Did you read the comment?
+  system.stateVersion = "23.05"; # Did you read the comment?
 
 }
