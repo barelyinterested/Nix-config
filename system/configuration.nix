@@ -58,6 +58,19 @@
  services.xserver.displayManager.sddm.enable = true;
  services.xserver.desktopManager.plasma5.enable = true;
 
+#enable OPENGL
+	hardware.opengl = {
+		enable = true;
+		driSupport = true;
+		driSupport32Bit = true;
+		extraPackages = with pkgs; [
+			intel-media-driver
+			vaapiIntel
+			vaapiVdpau
+			libvdpau-va-gl
+			mesa.drivers
+		];
+	};
 
   # Configure keymap in X11
   services.xserver = {
@@ -293,8 +306,8 @@ services.avahi = {
   openFirewall = true;
 };
 
-nix.gc.automatic = true;
-nix.gc.dates = "03:15";
+#nix.gc.automatic = true;
+#nix.gc.dates = "03:15";
 
 virtualisation.podman.enable = true;
 
