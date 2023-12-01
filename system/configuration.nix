@@ -8,7 +8,9 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
-    ];
+      <home-manager/nixos>
+        ];
+   # imports = [ <home-manager/nixos> ];
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
@@ -23,7 +25,11 @@
 
   # Enable networking
   networking.networkmanager.enable = true;
+#  networking.firewall = { enable = true; allowedTCPPortRanges = [ { from = 1714; to = 1764; } ]; allowedUDPPortRanges = [ { from = 1714; to = 1764; }
+  networking.firewall = { enable = true; allowedTCPPortRanges = [ { from = 1714; to = 1764; } ]; allowedUDPPortRanges = [ { from = 1714; to = 1764; } ]; };
 
+
+  
   # Set your time zone.
   time.timeZone = "America/New_York";
 
@@ -43,7 +49,7 @@
   };
 
   # Enable the X11 windowing system.
-  services.xserver.enable = true;
+ # services.xserver.enable = true;
 
 #Enable the Gnome Desktop Environment.
 #services.xserver.displayManager.gdm.enable = true;
@@ -55,8 +61,25 @@
  # services.xserver.desktopManager.xfce.enable = true;
 
   # Enable the KDE Plasma Desktop Environment.
- services.xserver.displayManager.sddm.enable = true;
- services.xserver.desktopManager.plasma5.enable = true;
+# services.xserver.displayManager.sddm.enable = true;
+services.xserver.desktopManager.plasma5.enable = true;
+  services.xserver = {
+    enable = true;
+    displayManager = {
+        sddm.enable = true;
+        defaultSession = "none+awesome";
+    };
+    windowManager.awesome = {
+      enable = true;
+      luaModules = with pkgs.luaPackages; [
+        luarocks # is the package manager for Lua modules
+        luadbi-mysql # Database abstraction layer
+      ];
+#    desktopManager.plasma5 = {
+#      enable = true;
+ #   };
+    };
+  };    
 
 #enable OPENGL
 	hardware.opengl = {
@@ -117,6 +140,12 @@
     ];
   };
 
+    home-manager.users.fred = {pkgs, ... }: {
+      home.packages = [pkgs.atool pkgs.httpie ];
+      programs.zsh.enable= true;
+      home.stateVersion = "23.11";
+    };
+
     # users.users.my-user = {
     #   isNormalUser = true;
     #   description = "My User";
@@ -151,12 +180,23 @@
 #for dumb logitech g213 kb
 #qterminal
 #unrar
+#Begin Awesome tools
+dmenu
+neocomp
+rofi
+rofi-wayland
+#suckless-tools
+pcmanfm
+#nautalis
+wayfire-with-plugins
+##End Awesome tools
 appimage-run
 arc-theme
 arc-icon-theme
 plata-theme
 ark
 brave
+btop
 celluloid
 cups
 cups-pdf-to-pdf
@@ -164,6 +204,7 @@ curl
 distrobox
 element-desktop
 etcher
+foliate
 g203-led
 git
 git-crypt
@@ -194,9 +235,15 @@ libsForQt5.kdeconnect-kde
 libsForQt5.kdesu
 libsForQt5.kpmcore
 libsForQt5.yakuake
+lsd
 lxqt.qterminal
 mullvad-vpn
 ne
+nerdfonts
+nerd-font-patcher
+powerline-fonts
+font-awesome
+terminus-nerdfont
 obs-studio
 obsidian
 onlyoffice-bin
@@ -209,6 +256,7 @@ qbittorrent
 #qownnotes
 rar
 #simplenote no longer maintained see pcloud if you need it
+speedtest-cli
 syncthing
 syncthing-tray
 tailscale
@@ -228,6 +276,10 @@ xfce.xfce4-whiskermenu-plugin
 zoom-us
 zsh
 oh-my-zsh
+zsh-syntax-highlighting
+zplug
+antigen
+thefuck
 ##testing 
 #vscode-with-extensions
 neofetch
@@ -341,6 +393,19 @@ services.udev.packages = with pkgs; [ gnome.gnome-settings-daemon ];
   #   enableSSHSupport = true;
   # };
 
+#   programs.zsh = {
+#   ... # Your zsh config
+#   zplug = {
+#     enable = true;
+#     plugins = [
+#       { name = "zsh-users/zsh-autosuggestions"; } # Simple plugin installation
+#       { name = "romkatv/powerlevel10k"; tags = [ as:theme depth:1 ]; } # Installations with additional options. For the list of options, please refer to Zplug README.
+#     ];
+#   };
+# };
+  
+  
+#programs.zsh.syntaxHighlighting.enable
     programs = {
       zsh = {
         enable = true;
@@ -348,6 +413,14 @@ services.udev.packages = with pkgs; [ gnome.gnome-settings-daemon ];
         ll = "ls -l";
         update = "sudo nixos-rebuild switch";
       };
+  #       zplug = {
+  #         enable = true;
+  #           plugins = [
+  #           { name = "zsh-users/zsh-autosuggestions"; } # Simple plugin installation
+  #           { name = "romkatv/powerlevel10k"; tags = [ as:theme depth:1 ]; } # Installations with additional options. For the list of options, please refer to Zplug README.
+  #           { name = "MichaelAquilina/zsh-you-should-use"; }
+  #   ];
+  # };
 #        histSize = 10000;
 #        histFile = "${config.xdg.dataHome}/zsh/history";
         ohMyZsh = {
@@ -359,6 +432,9 @@ services.udev.packages = with pkgs; [ gnome.gnome-settings-daemon ];
             "systemadmin"
             "vi-mode"
           ];
+        };
+        syntaxHighlighting = {
+          enable = true;
         };
       };
     };
